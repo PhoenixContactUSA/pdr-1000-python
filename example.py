@@ -1,4 +1,10 @@
 #!python3
-from .pdr import PDR
+from src.pdr.pdr import PDR
 
-p = PDR("192.168.0.5",5)
+def main():
+    
+    p = PDR("192.168.0.5",5)
+
+if __name__ == "__main__":
+    main()
+

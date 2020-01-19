@@ -2,7 +2,8 @@
 import requests
 
 def getConfig(self):
-    url = 'http://'+self.ip+'/rtuGetConfig'
+    url = 'http://'+self.ip+':'+str(self.port)+'/rtuGetConfig'
+    print('Calling url: ' + url)
     querystring = {"cb":"1574803349"}
 
     headers = {
@@ -14,4 +15,6 @@ def getConfig(self):
         print(res.json())
     else:
         print('Failed to receive rtuGetConfig response')
+        print('Status code: ' + str(res.status_code))
+        print('Reason: ' + res.reason)
         print(res.text)
