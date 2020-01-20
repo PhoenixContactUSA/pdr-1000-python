@@ -4,6 +4,7 @@ class PDR:
 
     from ..getLogData.getLogData import getLogData
     from ..getConfig.getConfig import getConfig
+    from ..getLogInfo.getLogInfo import getLogInfo
 
     def __init__(self,ip,timeout):
         self.config = {}
