@@ -22,7 +22,7 @@ def getLogData(self,startUTC,endUTC):
             print(res.text)
 
     except requests.exceptions.RequestException as e:
-            raise e
+        raise e
 
 
 def _parseRawLogData(self,rawData):

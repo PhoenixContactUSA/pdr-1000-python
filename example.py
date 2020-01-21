@@ -7,7 +7,9 @@ def connected(pdr):
         now = int(time.time())
         lastMin = now - 60
         data = pdr.getLogData(lastMin,now)
-        print(data)
+        
+        logInformation = pdr.getLogInfo()
+        print(logInformation)
     
     
 def connect(pdr):
