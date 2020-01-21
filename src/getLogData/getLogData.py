@@ -27,10 +27,6 @@ def getLogData(self,startUTC,endUTC):
 
 def _parseRawLogData(self,rawData):
 
-    parsedData = {
-        "timestamps": []
-    }
-
     bArr = bytearray(rawData)
     ret = []
     numRec = len(self.config['record'])
@@ -42,13 +38,13 @@ def _parseRawLogData(self,rawData):
     for i in range(0,numRec,1):
         id = self.config['record'][i]
         io = IO(self.getIO(id))
-        if (self._isDigital(io.conf) == False):
+        if (io.isDigital() == False):
             ios.append(io)
 
     for i in range(0,numRec,1):
         id = self.config['record'][i]
         io = IO(self.getIO(id))
-        if (self._isDigital(io.conf) == True):
+        if (io.isDigital() == True):
             ios.append(io)
 
 
@@ -80,7 +76,7 @@ def _parseRawLogData(self,rawData):
         for i in range(0,numRec):
             io = ios[i]
             rIndex = i
-            if (self._isDigital(io.conf)==True):
+            if (io.isDigital()==True):
                 if (errState[rIndex] != 0):
                     sample['values'][rIndex] = "ERR"
                 else:
@@ -112,4 +108,23 @@ def _parseRawLogData(self,rawData):
         
         ret.append(sample)
 
-    return ret
+    #format the collected data
+    parsedData = {
+        "timestamps": []
+    }
+
+    #create the keys
+    for i in range(0,len(ios)):
+        parsedData[ios[i].conf['name']] = []
+
+    #append the data
+    for i in range(0,len(ret)):
+        parsedData['timestamps'].append(ret[i]['time'])
+
+        for j in range(0,len(ret[i]['values'])):
+            if (ios[j].isDigital() == True):
+                parsedData[ios[j].conf['name']].append((ret[i]['values'][j]+1)%2)
+            else:
+                parsedData[ios[j].conf['name']].append(ret[i]['values'][j])
+
+    return parsedData

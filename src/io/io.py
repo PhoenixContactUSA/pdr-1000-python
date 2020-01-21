@@ -20,5 +20,11 @@ class IO:
         initFunc = typeSwitch.get(self.conf['type'])
         initFunc()
 
+    def isDigital(self):
+        if ((self.conf['type'] < 2) or (self.conf['type'] == 5)):
+            return True
+        else:
+            return False
+
     def _unknownIO(self):
         print('Unknown io type: ' + self.conf['type'])

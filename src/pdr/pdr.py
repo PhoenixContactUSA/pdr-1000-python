@@ -24,10 +24,3 @@ class PDR:
 
     def getIO(self,index):
         return self.config['io'][index]
-    
-    @staticmethod
-    def _isDigital(io):
-        if ((io['type'] < 2) or (io['type'] == 5)):
-            return True
-        else:
-            return False
