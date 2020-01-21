@@ -2,6 +2,7 @@
 import pprint
 import time
 import requests
+from ..io.io import IO
 
 def getLogData(self,startUTC,endUTC):
     if (self.initialized != True):
@@ -40,13 +41,13 @@ def _parseRawLogData(self,rawData):
     ios = []
     for i in range(0,numRec,1):
         id = self.config['record'][i]
-        io = self.getIO(id)
+        io = IO(self.getIO(id))
         if (self._isDigital(io) == False):
             ios.append(io)
 
     for i in range(0,numRec,1):
         id = self.config['record'][i]
-        io = self.getIO(id)
+        io = IO(self.getIO(id))
         if (self._isDigital(io) == True):
             ios.append(io)
 
@@ -95,7 +96,7 @@ def _parseRawLogData(self,rawData):
                         samples['values'][rIndex] = "ERR"+str(bArr[pos])
                         pos+=1
                     else:
-                        samples['values'][rIndex] = 0 #io.valueFromRaw
+                        samples['values'][rIndex] = io.valueFromRaw((bArr[pos]<<24)+(bArr[pos+1]<<16)+(bArr[pos+2]<<8)+(bArr[pos+3]));									
                         pos+=4
                 else:
                     if (errState[rIndex] != 0):
@@ -103,7 +104,7 @@ def _parseRawLogData(self,rawData):
                         sample['values'][rIndex] = "ERR"+str(bArr[pos])
                         pos+=1
                     else:
-                        sample['values'][rIndex] = 0    #io.valueFromRaw
+                        sample['values'][rIndex] = io.valueFromRaw((bArr[pos]<<8)+bArr[pos+1]);
                         pos+=2
 
         if (bcnt != 0):
