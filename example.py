@@ -2,13 +2,30 @@
 import time
 from src.pdr.pdr import PDR
 
-def main():
+def connected(pdr):
+        print('Connected to PDR: ' + pdr.config['name'])
+        now = int(time.time())
+        lastMin = now - 60
+        values = pdr.getLogData(lastMin,now)
+        print(values)
     
-    p = PDR("192.168.0.5",5)
-    #p.getLogInfo()
-    now = int(time.time())
-    lastTen = now - 60*10
-    p.getLogData(lastTen,now)
+    
+def connect(pdr):
+    try:
+        pdr.getConfig()
+        connected(pdr)
+
+    except Exception as e:
+        print('Failed to connect to pdr on port: ' + str(pdr.port))
+        pdr.switchPort()
+        time.sleep(1)
+        connect(pdr)
+
+def main():
+
+    pdr = PDR("192.168.0.5",5)
+
+    connect(pdr)
 
 if __name__ == "__main__":
     main()
