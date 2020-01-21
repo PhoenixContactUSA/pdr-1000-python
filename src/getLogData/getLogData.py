@@ -42,13 +42,13 @@ def _parseRawLogData(self,rawData):
     for i in range(0,numRec,1):
         id = self.config['record'][i]
         io = IO(self.getIO(id))
-        if (self._isDigital(io) == False):
+        if (self._isDigital(io.conf) == False):
             ios.append(io)
 
     for i in range(0,numRec,1):
         id = self.config['record'][i]
         io = IO(self.getIO(id))
-        if (self._isDigital(io) == True):
+        if (self._isDigital(io.conf) == True):
             ios.append(io)
 
 
@@ -80,7 +80,7 @@ def _parseRawLogData(self,rawData):
         for i in range(0,numRec):
             io = ios[i]
             rIndex = i
-            if (self._isDigital(io)==True):
+            if (self._isDigital(io.conf)==True):
                 if (errState[rIndex] != 0):
                     sample['values'][rIndex] = "ERR"
                 else:
@@ -90,7 +90,7 @@ def _parseRawLogData(self,rawData):
                 if (bcnt==0):
                     pos+=1
             else:
-                if (io['type'] == 7):
+                if (io.conf['type'] == 7):
                     if (errState[rIndex] != 0):
                         pos+=3
                         samples['values'][rIndex] = "ERR"+str(bArr[pos])
