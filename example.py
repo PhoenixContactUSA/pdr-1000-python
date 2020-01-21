@@ -1,15 +1,17 @@
 #!python3
 import time
+import pprint
 from src.pdr.pdr import PDR
 
 def connected(pdr):
+        pp = pprint.PrettyPrinter(indent=4)
         print('Connected to PDR: ' + pdr.config['name'])
         now = int(time.time())
         lastMin = now - 60
         data = pdr.getLogData(lastMin,now)
         
         logInformation = pdr.getLogInfo()
-        print(logInformation)
+        pp.pprint(logInformation)
     
     
 def connect(pdr):
