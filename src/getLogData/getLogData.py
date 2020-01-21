@@ -6,7 +6,7 @@ from ..io.io import IO
 
 def getLogData(self,startUTC,endUTC):
     if (self.initialized != True):
-        return Exception('You must wait until connection initialization is complete')
+        return Exception('Module not initialized.  getConfig must be successfully requested once before calling this method')
 
     #pp = pprint.PrettyPrinter(indent=4)
     time.sleep(0.05)

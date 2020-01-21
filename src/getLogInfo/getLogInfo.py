@@ -3,6 +3,9 @@ import pprint
 import requests
 
 def getLogInfo(self):
+    if (self.initialized != True):
+        return Exception('Module not initialized.  getConfig must be successfully requested once before calling this method')
+
     url = 'http://'+self.ip+':'+str(self.port)+'/rtuGetLogInfo'
 
     headers = {
