@@ -60,4 +60,4 @@ def _anaRaw4(self,raw):
     elif (raw == 0x8080):
         return "Under Range"
     else:
-        return self.conf['fvo'] + self.conf['settings'][1] + (((16/30000*raw) * (self.conf['settings'][2] - self.conf['settings'][1]))  / 16.0)
+        return self.conf.get('fvo',0) + self.conf['settings'][1] + (((16/30000*raw) * (self.conf['settings'][2] - self.conf['settings'][1]))  / 16.0)

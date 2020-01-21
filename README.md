@@ -15,3 +15,5 @@ The getLogData function requests log data between two timestamps in epoch time.
     lastMin = now - 60
     data = pdr.getLogData(lastMin,now)
 ```
+
+The returned data structure is a dictionary with keys representing each io point name, and the timestamps.  The value of these keys are an array of the associated data points where each index of the timestamps array corresponds with the associated data point in the point arrays.
